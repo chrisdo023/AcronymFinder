@@ -23,6 +23,11 @@ def main():
     print('Request for index page received.')
     return render_template('index.html')
 
+@app.route('/admin')
+def admin():
+    print('Request for admin page received.')
+    return render_template('admin.html')
+
 @app.errorhandler(NotFound)
 def page_not_found_handler(HTTPException):
     return render_template('404.html'), 404
