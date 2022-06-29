@@ -26,15 +26,45 @@ def findAbbrev(inputfile):
     
 #opens document and returns acronyms found
 def findAcronyms(inputfile):
+    outputfile = "list"
+
     rx = r"\b[A-Z](?=([&.]?))(?:\1[A-Z])+\b"
-    list = [x.group() for x in re.finditer(rx, inputfile)]
+    doc_text=docx2txt.process(inputfile)
+    list = [x.group() for x in re.finditer(rx, doc_text)]
 
     # remove repeated acronyms from list
     aclist = []
     for i in list:
         if i not in aclist:
            aclist.append(str(i))
-        
+    
+    #obtains list of acronyms not found in shwartz-hearst algorithm
+    notlist = []
+    global dict_from_csv
+    dict_from_csv_copy = dict_from_csv.copy()
+    for item in aclist:
+        if item not in dict_from_csv_copy.items():
+            dict_from_csv_copy.update({item: " "})
+    dict_from_csv_copy = OrderedDict(sorted(dict_from_csv_copy.items(), key=lambda t: t[0]))
+    print(dict_from_csv_copy)    
+
+    documentObj = Document()
+
+    table = documentObj.add_table(rows=1, cols=2)
+
+    check = []
+    
+    for k,v in dict_from_csv_copy.items():
+        row_cells = table.add_row().cells
+        row_cells[0].text = k
+        row_cells[1].text = v
+
+    documentObj.add_page_break()
+
+    documentObj.save("static/client/docx/" + outputfile + '.docx')
+
+    return check
+
 #iterates through given document and creates an excel workbook
 #with given outputfile name
 def createXLSX(outputfile):
@@ -68,7 +98,6 @@ def createDoc(outputfile):
     documentObj.save("static/client/docx/" + outputfile + '.docx')
 
     return check
-
 
 
 

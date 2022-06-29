@@ -73,6 +73,14 @@ def get_xlsx():
         print("cannot find file")
         abort(404)
 
+@app.route("/get-list", methods=['GET', 'POST'])
+def get_list():
+    filename = "list.docx"
+    try:
+        return send_from_directory(app.config["CLIENT_DOCX"], path=filename, as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
+
 if __name__ == "__main__":
   app.run()
   
