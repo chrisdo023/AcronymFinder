@@ -16,7 +16,7 @@ dropzone = Dropzone(app)
 
 #INPUT_FILE = "acronym_list.csv"
 
-OUTPUT_FILE = "output"
+OUTPUT_FILE = "output1"
 
 @app.route('/')
 def main():
@@ -46,8 +46,8 @@ def upload():
         findAbbrev(filePath + f.filename)
         findAcronyms(filePath + f.filename)
 
-        createXLSX(OUTPUT_FILE)
-        createDoc(OUTPUT_FILE)
+        createXLSX(filename)
+        createDoc(filename)
 
         try:
             os.remove(filePath + f.filename)
