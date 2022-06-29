@@ -46,8 +46,8 @@ def upload():
         findAbbrev(filePath + f.filename)
         findAcronyms(filePath + f.filename)
 
-        createXLSX(f.filename)
-        createDoc(f.filename)
+        createXLSX(filename)
+        createDoc(filename)
 
         try:
             os.remove(filePath + f.filename)
