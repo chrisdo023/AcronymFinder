@@ -54,7 +54,8 @@ def upload():
         except OSError as e:
             print("Error: %s : %s" % (filePath, e.strerror))
         
-    return jsonify(msg)
+        print("\n\n\n\nFINISHED UPLOADING", f.filename)
+    return jsonify(f.filename)
 
 @app.route("/get-docx", methods=['GET', 'POST'])
 def get_docx():

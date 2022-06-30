@@ -43,7 +43,9 @@ def findAcronyms(inputfile):
     global dict_from_csv
     dict_from_csv_copy = dict_from_csv.copy()
     for item in aclist:
-        if item not in dict_from_csv_copy.items():
+        if item in dict_from_csv_copy:
+            pass
+        else:
             dict_from_csv_copy.update({item: " "})
     dict_from_csv_copy = OrderedDict(sorted(dict_from_csv_copy.items(), key=lambda t: t[0]))
     print(dict_from_csv_copy)    
