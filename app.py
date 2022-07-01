@@ -44,7 +44,7 @@ def upload():
         print('Request to upload file with name=%s ' % filename)
 
         findAbbrev(filePath + f.filename)
-        findAcronyms(filePath + f.filename)
+        # findAcronyms(filePath + f.filename)
 
         createXLSX(filename)
         createDoc(filename)
@@ -59,7 +59,7 @@ def upload():
 
 @app.route("/get-docx", methods=['GET', 'POST'])
 def get_docx():
-    filename = "output.docx"
+    filename = "SOT_22-AMA-31_Test_Plan.docx"
     try:
         return send_from_directory(app.config["CLIENT_DOCX"], path=filename, as_attachment=True)
     except FileNotFoundError:
