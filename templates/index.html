@@ -56,14 +56,12 @@
             document.getElementById('download-btns').classList.remove('disabled');
 	    <!-- grab filename from dynamically added dz filename class -->
 	    let filenames = document.getElementsByClassName("dz-filename");
-	    let name = filenames[0].innerText;
+	    let fn = filenames[0].innerText;
+ 	    const request = new XMLHttpRequest();
+	    request.open('POST', `/get-docx/${JSON.stringify(fn)}`);
+	    request.send();
 	    <!-- display uploaded filename under dropzone -->
-	    document.getElementById('filename').textContent = name;
-	    $.ajax({
-	       url: "127.0.0.1:5000/get-docx",
-	       type: "POST",
-	       data: JSON.stringify({'fn': name})})
-
+	    document.getElementById('filename').textContent = fn;
             let items = document.getElementsByClassName('action_btn submit');
             for(var i = 0; i < items.length; i++) {
                items[i].style.color = 'blue';
