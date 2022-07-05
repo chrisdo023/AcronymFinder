@@ -31,11 +31,14 @@
          </div>
       </div>
       <div class="dropzone">
-         <div class="dz-message needsclick" style="align-items : center; justify-content: center;">
+         <div class="dz-message needsclick" id="dz-parent" style="align-items : center; justify-content: center;">
             <h3 style="align-items : center; justify-content: center;">Drag and drop file here</h3>
             <h4>or</h4>
             <label>Browse for file</label>
          </div>
+      </div>
+      <div class="file name" id="filename">
+	 test text
       </div>
    </div>
    <script>
@@ -53,6 +56,16 @@
       init: function() {
          this.on("success", function(serverResponse) {
             document.getElementById('download-btns').classList.remove('disabled');
+	    <!-- grab filename from dynamically added dz filename class -->
+	    let filenames = document.getElementsByClassName("dz-filename");
+	    let name = filenames[0].innerText;
+	    <!-- display uploaded filename under dropzone -->
+	    document.getElementById('filename').textContent = name;
+	    $.ajax({
+	       url: "127.0.0.1:5000/get-docx",
+	       type: "POST",
+	       data: JSON.stringify({'fn': name})})
+
             let items = document.getElementsByClassName('action_btn submit');
             for(var i = 0; i < items.length; i++) {
                items[i].style.color = 'blue';

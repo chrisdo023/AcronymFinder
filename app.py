@@ -59,6 +59,11 @@ def upload():
 
 @app.route("/get-docx", methods=['GET', 'POST'])
 def get_docx():
+    #f = request.files.get('file')
+    #sfn = secure_filename(f.filename)
+    #data = {}
+    #data['fn'] = request.json['fn']
+    #print(data['fn'])
     filename = "output.docx"
     try:
         return send_from_directory(app.config["CLIENT_DOCX"], path=filename, as_attachment=True)

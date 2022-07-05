@@ -70,7 +70,7 @@ def findAcronyms(inputfile):
 #iterates through given document and creates an excel workbook
 #with given outputfile name
 def createXLSX(outputfile):
-    workbook = xlsxwriter.Workbook("static/client/xlsx/" + outputfile + '.xlsx')
+    workbook = xlsxwriter.Workbook("static/client/xlsx/" + outputfile)# + '.xlsx')
     worksheet = workbook.add_worksheet()
 
     row = 0
@@ -97,7 +97,7 @@ def createDoc(outputfile):
 
     documentObj.add_page_break()
 
-    documentObj.save("static/client/docx/" + outputfile + '.docx')
+    documentObj.save("static/client/docx/" + outputfile)# + '.docx')
 
     return check
 
