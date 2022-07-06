@@ -19,16 +19,6 @@
             </div>
          </div>
       </div>
-<<<<<<< HEAD
-      <div class="dropzone">
-         <div class="dz-message needsclick" id="dz-parent" style="align-items : center; justify-content: center;">
-            <h3 style="align-items : center; justify-content: center;">Drag and drop file here</h3>
-            <h4>or</h4>
-            <label>Browse for file</label>
-         </div>
-      </div>
-      <div class="file name" id="filename"> </div>
-=======
       <div class="dropzone" style="border-style:dashed;">
          <div class="dz-message needsclick" style="align-items : center; justify-content: center;">
             <h3 style="align-items:center; justify-content:center;">Drag and drop file here</h3>
@@ -65,10 +55,10 @@
                <div></div>
                </div>
                <div class="column column-action" style="" id="action-one">
-                  <i class="fa-regular fa-file-word" onclick="openMenu(this)" id="ellipsis-one" style=""></i>
-                  <i class="fa-regular fa-file-excel" onclick="openMenu(this)" id="ellipsis-one" style=""></i>
-                  <i class="fa-regular fa-eye"></i>
-                  <i class="fa-regular fa-trash-can"></i>
+                  <i class="fa-regular fa-file-word" onclick="getDocx()" id="ellipsis-one" style=""></i>
+                  <i class="fa-regular fa-file-excel" onclick="getXLSX()" id="ellipsis-one" style=""></i>
+                  <i class="fa-regular fa-eye" onclick="getAcronyms()"></i>
+                  <i class="fa-regular fa-trash-can" onclick="trash()"></i>
                   <!-- Create a How To on an explaination on what the buttons do at the bottom of the page -->
                </div>
             </div>
@@ -106,7 +96,6 @@
             </div>
             <div class="line nonvisible" id="line-three"></div>
          </div>
->>>>>>> ee1bf5dad35fcc46f30dd44a3d515ca5d8d3d590
    </div>
    <script>
    $(document).ready(function(){
@@ -121,36 +110,16 @@
       acceptedFiles: 'application/pdf, .doc, .docx, .xlsx',
       addRemoveLinks: true,
       init: function() {
-         this.on("success", function(serverResponse) {
-            // document.getElementById('download-btns').classList.remove('disabled');
-            // let items = document.getElementsByClassName('action_btn submit');
-            // for(var i = 0; i < items.length; i++) {
-            //    items[i].style.color = 'blue';
-            // }
-
-            // const request = new XMLHttpRequest();
-            // request.open('POST', `/get-docx/${JSON.stringify(fn)}`);
-            // request.send();
-            // // display uploaded filename under dropzone
-            // document.getElementById('filename').textContent = fn;            
-         });     
-         // this.on("removedfile", function(file) {
-         //    document.getElementById('download-btns').classList.add('disabled');
-         //       let items = document.getElementsByClassName('action_btn submit');
-         //       for(var i = 0; i < items.length; i++) {
-         //          items[i].style.color = '';
-         //       }               
-         // });
+         // this.on("success", function(serverResponse) {});     
+         // this.on("removedfile", function(file) {});
 
          this.on("complete", function(file) {
             // grab filename from dynamically added dz filename class
             let filenames = document.getElementsByClassName("dz-filename");
             let fn = filenames[0].innerText;
-            console.log(fn);
 
             let filesize = document.getElementsByClassName("dz-size");
             let fs = filesize[0].innerText;
-            console.log(fs);
 
             let today = new Date();
             let dd = String(today.getDate()).padStart(2, '0');
@@ -158,7 +127,6 @@
             let yyyy = today.getFullYear();
 
             today = mm + '/' + dd + '/' + yyyy;
-            console.log(today)
 
             let filediv = document.getElementById("file-one");
             filediv.className = "row fade-in-image";
@@ -168,15 +136,47 @@
             filediv[2].innerText = fs;
 
             let linediv = document.getElementById("line-one").className = "line";
-
-            // this.removeFile(file);
          });
       }
       });
    });
+   function getDocx() {
+      // this.removeFile(file);
+      // grab filename from dynamically added dz filename class
+      let filenames = document.getElementsByClassName("dz-filename");
+      let fn = filenames[0].innerText;
+      const request = new XMLHttpRequest();
+      request.open('POST', `/get-docx/${JSON.stringify(fn)}`);
+      request.send();
+   }
 
-   function openMenu(e) {
-      alert(e.id);
+   function getXLSX() {
+      // grab filename from dynamically added dz filename class
+      let filenames = document.getElementsByClassName("dz-filename");
+      let fn = filenames[0].innerText;
+      const request = new XMLHttpRequest();
+      request.open('POST', `/get-xlsx/${JSON.stringify(fn)}`);
+      request.send();     
+   }
+
+   function trash() {
+      document.getElementById("file-one").className = "row fade-in-image nonvisible";
+      document.getElementById("line-one").className = "line nonvisible";
+   }
+
+   function getAcronyms() {
+      // this.removeFile(file);
+      // grab filename from dynamically added dz filename class
+      let filenames = document.getElementsByClassName("dz-filename");
+      let fn = filenames[0].innerText;
+      const request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+         if (request.readyState == XMLHttpRequest.DONE) {
+            alert(request.responseText);
+         }
+      }
+      request.open('GET', `/get-list`, true);
+      request.send();
    }
    </script>
    {{ dropzone.load_js() }}

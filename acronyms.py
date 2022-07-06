@@ -21,8 +21,8 @@ dict_from_csv = {}
 #opens given outputfile and finds full abbreviations of acronyms
 def findAbbrev(inputfile):
     # TO-DO: Remove parenthesis from the outside
-    doc_text = inputfile
-    # doc_text=docx2txt.process(inputfile)
+    # doc_text = inputfile
+    doc_text=docx2txt.process(inputfile)
     openingParenthesisStack = []
     # iterates through index and character of enumerated text
     for i, char in enumerate(doc_text):
@@ -42,13 +42,16 @@ def findAbbrev(inputfile):
         while openingParenthesisStack:
             i, char = openingParenthesisStack.pop()
             doc_text = doc_text[:i] + doc_text[i+1:]
-    print(doc_text)
     pairs = extract_abbreviation_definition_pairs(doc_text=doc_text)
-    print(pairs)
     # pairs = ''
     global dict_from_csv
     dict_from_csv = OrderedDict(sorted(pairs.items(), key=lambda t: t[0]))
-    
+
+#return dict_from_csv
+def getDictFromCSV():
+    global dict_from_csv
+    return dict_from_csv
+
 #opens document and returns acronyms found
 def findAcronyms(inputfile):
     outputfile = "list"
@@ -122,9 +125,10 @@ def createDoc(outfilename):
 
     documentObj.add_page_break()
 
-    documentObj.save("static/client/docx/" + outfilename)# + '.docx')
-
-    return check
+    print("createDoc: " + outfilename)
+    path = "static/client/docx/" + outfilename
+    print("Path saved to: ", path)
+    documentObj.save(path)
 
 
 
