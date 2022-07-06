@@ -22,10 +22,6 @@ input {
 }
 
 .line{
-<<<<<<< HEAD
-=======
-    width: 100%;
->>>>>>> 393f1afbfe2a96b7ec5431b45c89527751703c63
     border-bottom: 1px solid #999;
     position: relative;
 }
@@ -159,26 +155,37 @@ label:hover, label:active {
 .fa-ellipsis {
     padding: 2.5px;
     color: black; 
-    font-size: 30px;
+    font-size: 25px;
     display: block;
 }
 
 .fa-file-word {
     padding: 2.5px;
     color: black; 
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .fa-file-excel {
     padding: 2.5px;
     color: black; 
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .fa-eye {
     padding: 2.5px;
     color: black; 
-    font-size: 30px;   
+    font-size: 25px;   
+}
+
+.fa-trash-can {
+    padding: 2.5px;
+    color: black; 
+    font-size: 25px;    
+}
+
+.fa-trash-can:hover {
+    color: #e62636;
+    transform: scale(1.1);    
 }
 
 .fa-ellipsis-vertical {
