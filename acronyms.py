@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 #from abbreviations import schwartz_hearst
+from pydoc import doc
 from schwartz_hearst import extract_abbreviation_definition_pairs
 import json
 import sys, getopt
@@ -19,7 +20,31 @@ dict_from_csv = {}
 
 #opens given outputfile and finds full abbreviations of acronyms
 def findAbbrev(inputfile):
-    pairs = extract_abbreviation_definition_pairs(doc_text=docx2txt.process(inputfile))
+    # TO-DO: Remove parenthesis from the outside
+    doc_text = inputfile
+    # doc_text=docx2txt.process(inputfile)
+    openingParenthesisStack = []
+    # iterates through index and character of enumerated text
+    for i, char in enumerate(doc_text):
+        # checks for open and closing parenthesis and appends into stack
+        if char == '(':
+            openingParenthesisStack.append((i, char))
+        if char == ')':
+            if openingParenthesisStack:
+                # the last item in stack is '(' pop the last item in stack
+                if openingParenthesisStack[len(openingParenthesisStack) - 1][1] == '(':
+                    openingParenthesisStack.pop()
+            # Condition: '()))'
+            else:                
+                doc_text = doc_text[:i] + doc_text[i+1:]
+    if openingParenthesisStack:
+        # keep on replacing the '(' from text with the index and character obtained from the pop item from stack
+        while openingParenthesisStack:
+            i, char = openingParenthesisStack.pop()
+            doc_text = doc_text[:i] + doc_text[i+1:]
+    print(doc_text)
+    pairs = extract_abbreviation_definition_pairs(doc_text=doc_text)
+    print(pairs)
     # pairs = ''
     global dict_from_csv
     dict_from_csv = OrderedDict(sorted(pairs.items(), key=lambda t: t[0]))
@@ -48,7 +73,7 @@ def findAcronyms(inputfile):
         else:
             dict_from_csv_copy.update({item: " "})
     dict_from_csv_copy = OrderedDict(sorted(dict_from_csv_copy.items(), key=lambda t: t[0]))
-    print(dict_from_csv_copy)    
+    # print(dict_from_csv_copy)    
 
     documentObj = Document()
 
@@ -89,7 +114,7 @@ def createDoc(outfilename):
     table = documentObj.add_table(rows=1, cols=2)
 
     check = []
-    
+
     for k,v in dict_from_csv.items():
         row_cells = table.add_row().cells
         row_cells[0].text = k

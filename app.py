@@ -33,6 +33,7 @@ def admin():
 def page_not_found_handler(HTTPException):
     return render_template('404.html'), 404
 
+
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     msg = ''
@@ -45,7 +46,7 @@ def upload():
         print('Request to upload file with name=%s ' % filename)
 
         findAbbrev(filePath + f.filename)
-        findAcronyms(filePath + f.filename)
+        # findAcronyms(filePath + f.filename)
 
         # save acronym lists on server w/ given output file name
         print("UPLOAD FILENAME IS")

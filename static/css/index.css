@@ -1,10 +1,14 @@
+/* body {
+    background-color: #f3f3f3;
+} */
+
 .dropzone {
     min-height: 400px;
     text-align: center;
     color: black;
     position: relative;
     margin: 0 auto;
-    border-radius: 25px;
+    border-radius: 5px;
 }
 
 input {
@@ -17,28 +21,22 @@ input {
     left: 0;
 }
 
+.line{
+    border-bottom: 1px solid #999;
+    position: relative;
+}
+
 label {
     color: white;
     width: 183px;
     height: 44px;
     border-radius: 21.5px;
-    background-color: coral; 
+    background-color: #e62636; 
     padding: 10px 16px;
-  }
+}
 
 label:hover, label:active {
     background-color: #bb1c29;
-}
-
-.item {
-    display: table-row;
-    height: 100px;
-    border-color: gray;
-}
-
-.item:hover {
-    color: black;
-    border-color: black;
 }
 
 .list-container {
@@ -81,4 +79,166 @@ label:hover, label:active {
 
 .submit {
     color: red;
+}
+
+.header-container {
+    box-sizing: border-box;
+}
+
+.column {
+    float: left; 
+    padding: 10px;
+    height: 25px;
+}
+
+.column-name {
+    width: 30%;
+}
+
+.column-date {
+    width: 20%;
+}
+
+.column-action {
+    width: 30%;
+}
+
+.column-size {
+    width: 20%
+}
+
+.row {
+    line-height: 30px;
+}
+
+/* Fade in */
+.fade-in-image {
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+0% { opacity: 0; }
+100% { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+0% { opacity: 0; }
+100% { opacity: 1; }
+}
+
+@-webkit-keyframes fadeIn {
+0% { opacity: 0; }
+100% { opacity: 1; }
+}
+
+@-o-keyframes fadeIn {
+0% { opacity: 0; }
+100% { opacity: 1; }
+}
+
+@-ms-keyframes fadeIn {
+0% { opacity: 0; }
+100% { opacity: 1; }
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    height: 30px;
+}
+
+.fa-ellipsis {
+    padding: 2.5px;
+    color: black; 
+    font-size: 25px;
+    display: block;
+}
+
+.fa-file-word {
+    padding: 2.5px;
+    color: black; 
+    font-size: 25px;
+}
+
+.fa-file-excel {
+    padding: 2.5px;
+    color: black; 
+    font-size: 25px;
+}
+
+.fa-eye {
+    padding: 2.5px;
+    color: black; 
+    font-size: 25px;   
+}
+
+.fa-trash-can {
+    padding: 2.5px;
+    color: black; 
+    font-size: 25px;    
+}
+
+.fa-trash-can:hover {
+    color: #e62636;
+    transform: scale(1.1);    
+}
+
+.fa-ellipsis-vertical {
+    padding: 2.5px;
+    color: black; 
+    font-size: 30px;    
+}
+
+.fa-ellipsis:hover {
+    color: #e62636;
+    transform: scale(1.1);
+}
+
+.word-message {
+    display: none;
+    font-size: 10px;
+    position: absolute;
+    text-align: center;
+}
+
+.fa-file-word:hover {
+    color: blue;
+    transform: scale(1.1);
+}
+
+.fa-eye:hover {
+    color: black;
+    transform: scale(1.1);
+}
+
+.fa-file-word:hover > .word-message {
+    display:block !important;
+    z-index: 10;
+}
+
+.excel-message {
+    display: none;
+    font-size: 10px;
+    position: absolute;
+    text-align: center;
+}
+
+.fa-file-excel:hover {
+    color: green;
+    transform: scale(1.1);
+}
+
+.fa-file-excel:hover > .excel-message {
+    display:block !important;
+    z-index: 10;
+}
+
+
+.nonvisible {
+    display: none;
 }
