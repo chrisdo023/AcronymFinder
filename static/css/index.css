@@ -22,6 +22,10 @@ input {
 }
 
 .line{
+<<<<<<< HEAD
+=======
+    width: 100%;
+>>>>>>> 393f1afbfe2a96b7ec5431b45c89527751703c63
     border-bottom: 1px solid #999;
     position: relative;
 }
