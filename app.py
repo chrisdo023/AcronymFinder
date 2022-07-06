@@ -1,4 +1,5 @@
 import os
+import json
 
 from flask import Flask
 from flask import render_template, request, jsonify, send_file, send_from_directory, abort
@@ -32,6 +33,7 @@ def admin():
 def page_not_found_handler(HTTPException):
     return render_template('404.html'), 404
 
+
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     msg = ''
@@ -46,8 +48,11 @@ def upload():
         findAbbrev(filePath + f.filename)
         # findAcronyms(filePath + f.filename)
 
-        createXLSX(filename)
-        createDoc(filename)
+        # save acronym lists on server w/ given output file name
+        print("UPLOAD FILENAME IS")
+        print(f.filename)
+        createXLSX(f.filename)
+        createDoc(f.filename)
 
         try:
             os.remove(filePath + f.filename)
@@ -57,9 +62,18 @@ def upload():
         print("\n\n\n\nFINISHED UPLOADING", f.filename)
     return jsonify(f.filename)
 
-@app.route("/get-docx", methods=['GET', 'POST'])
-def get_docx():
-    filename = "SOT_22-AMA-31_Test_Plan.docx"
+@app.route("/get-docx/<string:fn>", methods=['GET', 'POST'])
+def get_docx(fn):
+    #f = request.files.get('file')
+    #sfn = secure_filename(f.filename)
+    #data = {}
+    #data['fn'] = request.json['fn']
+    #print(data['fn'])
+    fn = json.loads(fn)
+    filename = fn
+    print("GET-DOCX FILENAME IS")
+    print(filename)
+    #filename = "output.docx"
     try:
         return send_from_directory(app.config["CLIENT_DOCX"], path=filename, as_attachment=True)
     except FileNotFoundError:

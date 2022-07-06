@@ -22,7 +22,6 @@ input {
 }
 
 .line{
-    width: 1145px;
     border-bottom: 1px solid #999;
     position: relative;
 }
@@ -93,7 +92,7 @@ label:hover, label:active {
 }
 
 .column-name {
-    width: 20%;
+    width: 30%;
 }
 
 .column-date {
@@ -101,11 +100,11 @@ label:hover, label:active {
 }
 
 .column-action {
-    width: 20%;
+    width: 30%;
 }
 
 .column-size {
-    width: 40%
+    width: 20%
 }
 
 .row {
@@ -154,12 +153,81 @@ label:hover, label:active {
 }
 
 .fa-ellipsis {
-    padding: 5px;
+    padding: 2.5px;
     color: black; 
-    font-size: 20px;
+    font-size: 30px;
+    display: block;
+}
+
+.fa-file-word {
+    padding: 2.5px;
+    color: black; 
+    font-size: 30px;
+}
+
+.fa-file-excel {
+    padding: 2.5px;
+    color: black; 
+    font-size: 30px;
+}
+
+.fa-eye {
+    padding: 2.5px;
+    color: black; 
+    font-size: 30px;   
+}
+
+.fa-ellipsis-vertical {
+    padding: 2.5px;
+    color: black; 
+    font-size: 30px;    
 }
 
 .fa-ellipsis:hover {
     color: #e62636;
     transform: scale(1.1);
+}
+
+.word-message {
+    display: none;
+    font-size: 10px;
+    position: absolute;
+    text-align: center;
+}
+
+.fa-file-word:hover {
+    color: blue;
+    transform: scale(1.1);
+}
+
+.fa-eye:hover {
+    color: black;
+    transform: scale(1.1);
+}
+
+.fa-file-word:hover > .word-message {
+    display:block !important;
+    z-index: 10;
+}
+
+.excel-message {
+    display: none;
+    font-size: 10px;
+    position: absolute;
+    text-align: center;
+}
+
+.fa-file-excel:hover {
+    color: green;
+    transform: scale(1.1);
+}
+
+.fa-file-excel:hover > .excel-message {
+    display:block !important;
+    z-index: 10;
+}
+
+
+.nonvisible {
+    display: none;
 }

@@ -94,8 +94,8 @@ def findAcronyms(inputfile):
 
 #iterates through given document and creates an excel workbook
 #with given outputfile name
-def createXLSX(outputfile):
-    workbook = xlsxwriter.Workbook("static/client/xlsx/" + outputfile + '.xlsx')
+def createXLSX(outfilename):
+    workbook = xlsxwriter.Workbook("static/client/xlsx/" + outfilename)# + '.xlsx')
     worksheet = workbook.add_worksheet()
 
     row = 0
@@ -108,13 +108,13 @@ def createXLSX(outputfile):
 
 #iterates through given document and creates a word docx
 #with given outputfile name
-def createDoc(outputfile):
+def createDoc(outfilename):
     documentObj = Document()
 
     table = documentObj.add_table(rows=1, cols=2)
 
     check = []
-    
+
     for k,v in dict_from_csv.items():
         row_cells = table.add_row().cells
         row_cells[0].text = k
@@ -122,9 +122,7 @@ def createDoc(outputfile):
 
     documentObj.add_page_break()
 
-    filePath = "static/client/docx/" + outputfile
-    print(filePath)
-    documentObj.save(filePath)
+    documentObj.save("static/client/docx/" + outfilename)# + '.docx')
 
     return check
 
