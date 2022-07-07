@@ -47,6 +47,9 @@ def findAbbrev(inputfile):
     global dict_from_csv
     dict_from_csv = OrderedDict(sorted(pairs.items(), key=lambda t: t[0]))
 
+    # Don't create global dict_from_csv. Call the function everytime a 
+    # file is uploaded or needed to create the .docx or .xlsx
+
 #return dict_from_csv
 def getDictFromCSV():
     global dict_from_csv
@@ -98,7 +101,7 @@ def findAcronyms(inputfile):
 #iterates through given document and creates an excel workbook
 #with given outputfile name
 def createXLSX(outfilename):
-    workbook = xlsxwriter.Workbook("static/client/xlsx/" + outfilename)# + '.xlsx')
+    workbook = xlsxwriter.Workbook("static/client/xlsx/" + outfilename)
     worksheet = workbook.add_worksheet()
 
     row = 0
@@ -112,12 +115,10 @@ def createXLSX(outfilename):
 #iterates through given document and creates a word docx
 #with given outputfile name
 def createDoc(outfilename):
+    # creates document object with one row and two columns
     documentObj = Document()
-
     table = documentObj.add_table(rows=1, cols=2)
-
-    check = []
-
+    # iterates through global dict_from_csv to create table
     for k,v in dict_from_csv.items():
         row_cells = table.add_row().cells
         row_cells[0].text = k
@@ -125,10 +126,7 @@ def createDoc(outfilename):
 
     documentObj.add_page_break()
 
-    print("createDoc: " + outfilename)
-    path = "static/client/docx/" + outfilename
-    print("Path saved to: ", path)
-    documentObj.save(path)
+    documentObj.save("static/client/docx/" + outfilename)
 
 
 

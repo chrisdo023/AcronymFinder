@@ -22,39 +22,39 @@
       <div class="dropzone" style="border-style:dashed;">
          <div class="dz-message needsclick" style="align-items : center; justify-content: center;">
             <h3 style="align-items:center; justify-content:center;">Drag and drop file here</h3>
-            <h4 style="">or</h4>
+            <h4>or</h4>
             <label>Browse for file</label>
          </div>
       </div>
       <h3 style="margin-top: 25px;">Uploaded files:</h3>
          <div class="header-container">
             <div class="row" style="width: 100%; text-align: center; font-weight: bold;">
-               <div class="column column-name" style="">
+               <div class="column column-name">
                <div>Name</div>
                </div>
-               <div class="column column-date" style="">
+               <div class="column column-date">
                <div>Date</div>
                </div>
-               <div class="column column-size" style="">
+               <div class="column column-size">
                <div>Size</div>
                </div>
-               <div class="column column-action" style="">
+               <div class="column column-action">
                <div>Action</div>
                </div>
             </div>
             <div class="line"></div>
 
             <div class="row fade-in-image nonvisible" style="width: 100%; text-align: center;" id="file-one">
-               <div class="column column-name" style="">
+               <div class="column column-name">
                <div></div>
                </div>
-               <div class="column column-date" style="">
+               <div class="column column-date">
                <div></div>
                </div>
-               <div class="column column-size" style="">
+               <div class="column column-size">
                <div></div>
                </div>
-               <div class="column column-action" style="" id="action-one">
+               <div class="column column-action" id="action-one">
                   <i class="fa-regular fa-file-word" onclick="getDocx()" id="ellipsis-one" style=""></i>
                   <i class="fa-regular fa-file-excel" onclick="getXLSX()" id="ellipsis-one" style=""></i>
                   <i class="fa-regular fa-eye" onclick="getAcronyms()"></i>
@@ -107,7 +107,7 @@
       progressBarWidth: '100%',
       maxFiles: 1,
       maxFileSize: '15MB',
-      acceptedFiles: 'application/pdf, .doc, .docx, .xlsx',
+      acceptedFiles: '.doc, .docx',
       addRemoveLinks: true,
       init: function() {
          // this.on("success", function(serverResponse) {});     
@@ -140,45 +140,8 @@
       }
       });
    });
-   function getDocx() {
-      // this.removeFile(file);
-      // grab filename from dynamically added dz filename class
-      let filenames = document.getElementsByClassName("dz-filename");
-      let fn = filenames[0].innerText;
-      const request = new XMLHttpRequest();
-      request.open('POST', `/get-docx/${JSON.stringify(fn)}`);
-      request.send();
-   }
-
-   function getXLSX() {
-      // grab filename from dynamically added dz filename class
-      let filenames = document.getElementsByClassName("dz-filename");
-      let fn = filenames[0].innerText;
-      const request = new XMLHttpRequest();
-      request.open('POST', `/get-xlsx/${JSON.stringify(fn)}`);
-      request.send();     
-   }
-
-   function trash() {
-      document.getElementById("file-one").className = "row fade-in-image nonvisible";
-      document.getElementById("line-one").className = "line nonvisible";
-   }
-
-   function getAcronyms() {
-      // this.removeFile(file);
-      // grab filename from dynamically added dz filename class
-      let filenames = document.getElementsByClassName("dz-filename");
-      let fn = filenames[0].innerText;
-      const request = new XMLHttpRequest();
-      request.onreadystatechange = function() {
-         if (request.readyState == XMLHttpRequest.DONE) {
-            alert(request.responseText);
-         }
-      }
-      request.open('GET', `/get-list`, true);
-      request.send();
-   }
    </script>
+   <script src="{{url_for('static', filename='js/index.js')}}"></script>
    {{ dropzone.load_js() }}
    </body>
 </html>

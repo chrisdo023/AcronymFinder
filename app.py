@@ -24,11 +24,6 @@ def main():
     print('Request for index page received.')
     return render_template('index.html')
 
-@app.route('/admin')
-def admin():
-    print('Request for admin page received.')
-    return render_template('admin.html')
-
 @app.errorhandler(NotFound)
 def page_not_found_handler(HTTPException):
     return render_template('404.html'), 404
@@ -57,35 +52,32 @@ def upload():
 
 @app.route("/get-docx/<string:fn>", methods=['GET', 'POST'])
 def get_docx(fn):
-    fn = json.loads(fn)
-    filename = fn
-    print("filename: ", filename)
-    print()
-    
+    filename = json.loads(fn)
     createDoc(filename)
 
     try:
-        print("in try")
-        # return send_from_directory(app.config["CLIENT_DOCX"], path=filename, as_attachment=True)
-        return send_from_directory("static/client/docx/", path="test.docx", as_attachment=True)
+        return send_from_directory(app.config["CLIENT_DOCX"], path=filename, as_attachment=True)
     except FileNotFoundError:
-        print("in filenot ")
         abort(404)
-
-    print("finished")
 
 @app.route("/get-xlsx/<string:fn>", methods=['GET', 'POST'])
 def get_xlsx(fn):
-    filename = json.loads(fn)
+    #extracts filename without extension
+    filename = (json.loads(fn)).split(".docx")[0] + ".xlsx"
     createXLSX(filename)
 
     try:
         return send_from_directory(app.config["CLIENT_XLSX"], path=filename, as_attachment=True)
     except FileNotFoundError:
-        print("cannot find file")
         abort(404)
 
-@app.route("/get-list", methods=['GET', 'POST'])
+# To-Do: Need to specify the file to get acronyms from
+# or change the infrastructure when the findAbbrev should be called
+# maybe findAbbrev() should be called when createDoc() and createLXSX()
+# are called. And for get_list() it will be called individually with the file
+# name attached to the endpoint
+# @app.route("/get-list/<string:fn>", methods=['GET', 'POST'])
+@app.route("/get-list/", methods=['GET', 'POST'])
 def get_list():
     acronyms = getDictFromCSV()
     print("get_list request received")
