@@ -22,6 +22,12 @@ OUTPUT_FILE = "output1"
 @app.route('/')
 def main():
     print('Request for index page received.')
+
+    # filename = "test.docx"
+    # try:
+    #     return send_from_directory(app.config["CLIENT_DOCX"], path=filename, as_attachment=True)
+    # except FileNotFoundError:
+    #     abort(404)
     return render_template('index.html')
 
 @app.route('/admin')
@@ -58,8 +64,7 @@ def upload():
             os.remove(filePath + f.filename)
         except OSError as e:
             print("Error: %s : %s" % (filePath, e.strerror))
-        
-        print("\n\n\n\nFINISHED UPLOADING", f.filename)
+
     return jsonify(f.filename)
 
 @app.route("/get-docx/<string:fn>", methods=['GET', 'POST'])
