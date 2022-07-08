@@ -92,7 +92,7 @@ label:hover, label:active {
 }
 
 .column-name {
-    width: 30%;
+    width: 40%;
 }
 
 .column-date {
@@ -100,7 +100,7 @@ label:hover, label:active {
 }
 
 .column-action {
-    width: 30%;
+    width: 20%;
 }
 
 .column-size {
@@ -238,7 +238,22 @@ label:hover, label:active {
     z-index: 10;
 }
 
-
 .nonvisible {
     display: none;
+}
+
+.view-container {
+    background-color: green; 
+    position: absolute; 
+    border-radius: 5px; 
+    height: 500px; 
+    width: 800px; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+
+.blur {
+    -webkit-filter: blur(2.5px); /* Chrome, Safari, Opera */
+    filter: blur(2.5px);
 }

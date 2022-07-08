@@ -1,8 +1,9 @@
 import os
 import json
+import csv
 
 from flask import Flask
-from flask import render_template, request, jsonify, send_file, send_from_directory, abort
+from flask import render_template, request, jsonify, send_from_directory, abort
 from flask_dropzone import Dropzone
 from werkzeug.utils import secure_filename
 from acronyms import findAbbrev, findAcronyms, createXLSX, createDoc, getDictFromCSV
@@ -12,12 +13,9 @@ app = Flask(__name__)
 app.config["CLIENT_CSV"] = "static/client/csv/"
 app.config["CLIENT_DOCX"] = "static/client/docx/"
 app.config["CLIENT_XLSX"] = "static/client/xlsx/"
+app.config["CLIENT_UPLOADS"] = "static/client/uploads/"
 
 dropzone = Dropzone(app)
-
-#INPUT_FILE = "acronym_list.csv"
-
-OUTPUT_FILE = "output1"
 
 @app.route('/')
 def main():
@@ -31,29 +29,42 @@ def page_not_found_handler(HTTPException):
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
-    msg = ''
+    f = request.files.get('file')
+    filename = secure_filename(f.filename) # sanitize file name
+    msg = "Could not upload file: " + filename
+
     if request.method == 'POST':
-        f = request.files.get('file')
-        filePath = "static/client/uploads/"
-        f.save(filePath + f.filename)
-        filename = secure_filename(f.filename)
+        data = findAbbrev(f)
 
-        print('Request to upload file with name=%s ' % filename)
+        filePath = app.config["CLIENT_UPLOADS"]
 
-        findAbbrev(filePath + f.filename)
-        # findAcronyms(filePath + f.filename)
+        msg = "Uploaded file: " + filename
 
-        try:
-            os.remove(filePath + f.filename)
-        except OSError as e:
-            print("Error: %s : %s" % (filePath, e.strerror))
+        # replaces original extension with .csv to create
+        # and save a csv file of only short forms and long forms
+        header = ["short form", "long form"]
+        csvfile = (filename).split(".docx")[0] + ".csv"
+        with open(filePath + csvfile, 'w', encoding='UTF8', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(header)
+            for k,v in data.items():
+                writer.writerow([k, v])
  
-    return jsonify(f.filename)
+    return jsonify(msg)
 
 @app.route("/get-docx/<string:fn>", methods=['GET', 'POST'])
 def get_docx(fn):
-    filename = json.loads(fn)
-    createDoc(filename)
+    filePath = app.config["CLIENT_UPLOADS"]
+    filename = secure_filename(json.loads(fn))
+
+    # replaces original extension with .csv 
+    csvfile = (filename).split(".docx")[0] + ".csv"
+    with open(filePath + csvfile, mode='r') as infile:
+        reader = csv.reader(infile)
+        next(reader)
+        data = {rows[0]:rows[1] for rows in reader}  
+
+    createDoc(filename, data)
 
     try:
         return send_from_directory(app.config["CLIENT_DOCX"], path=filename, as_attachment=True)
@@ -62,26 +73,37 @@ def get_docx(fn):
 
 @app.route("/get-xlsx/<string:fn>", methods=['GET', 'POST'])
 def get_xlsx(fn):
-    #extracts filename without extension
-    filename = (json.loads(fn)).split(".docx")[0] + ".xlsx"
-    createXLSX(filename)
+    filePath = app.config["CLIENT_UPLOADS"]
+    filename = secure_filename(json.loads(fn))
+
+    # replaces original extension with .csv 
+    csvfile = (filename).split(".docx")[0] + ".csv"
+    with open(filePath + csvfile, mode='r') as infile:
+        reader = csv.reader(infile)
+        next(reader)
+        data = {rows[0]:rows[1] for rows in reader}  
+
+    createXLSX(filename, data)
 
     try:
         return send_from_directory(app.config["CLIENT_XLSX"], path=filename, as_attachment=True)
     except FileNotFoundError:
         abort(404)
 
-# To-Do: Need to specify the file to get acronyms from
-# or change the infrastructure when the findAbbrev should be called
-# maybe findAbbrev() should be called when createDoc() and createLXSX()
-# are called. And for get_list() it will be called individually with the file
-# name attached to the endpoint
-# @app.route("/get-list/<string:fn>", methods=['GET', 'POST'])
-@app.route("/get-list/", methods=['GET', 'POST'])
-def get_list():
-    acronyms = getDictFromCSV()
-    print("get_list request received")
-    return jsonify(acronyms)
+@app.route("/get-list/<string:fn>", methods=['GET', 'POST'])
+def get_list(fn):
+    filePath = app.config["CLIENT_UPLOADS"]
+    filename = secure_filename(json.loads(fn))
+    print("filename inside get_list: ", filename)
+
+    # replaces original extension with .csv 
+    csvfile = (filename).split(".docx")[0] + ".csv"
+    with open(filePath + csvfile, mode='r') as infile:
+        reader = csv.reader(infile)
+        next(reader)
+        data = {rows[0]:rows[1] for rows in reader}  
+        
+    return jsonify(data)
 
 if __name__ == "__main__":
   app.run()

@@ -23,12 +23,22 @@ function getAcronyms() {
     // grab filename from dynamically added dz filename class
     let filenames = document.getElementsByClassName("dz-filename");
     let fn = filenames[0].innerText;
-    const request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-        if (request.readyState == XMLHttpRequest.DONE) {
-            alert(request.responseText);
-        }
-    }
-    request.open('GET', `/get-list`, true);
-    request.send();
+    // const request = new XMLHttpRequest();
+    // request.onreadystatechange = function() {
+    //     if (request.readyState == XMLHttpRequest.DONE) {
+    //         alert(request.responseText);
+    //     }
+    // }
+    // request.open('GET', `/get-list/${JSON.stringify(fn)}`, true);
+    // request.send();
+
+    fetch(`/get-list/${JSON.stringify(fn)}`)
+        .then(function (response) {
+            return response.text();
+        }).then(function (data) {
+            document.getElementById("container").className = "container blur";
+
+            document.getElementById("view").className = "view-container";
+            document.getElementById("view-content").innerHTML = data;
+        });
 }

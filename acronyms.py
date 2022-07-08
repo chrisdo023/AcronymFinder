@@ -18,7 +18,7 @@ from collections import OrderedDict
 #stores dictionary of acronyms and abbreviations
 dict_from_csv = {}
 
-#opens given outputfile and finds full abbreviations of acronyms
+#opens given file path and finds full abbreviations of acronyms
 def findAbbrev(inputfile):
     # TO-DO: Remove parenthesis from the outside
     # doc_text = inputfile
@@ -42,18 +42,22 @@ def findAbbrev(inputfile):
         while openingParenthesisStack:
             i, char = openingParenthesisStack.pop()
             doc_text = doc_text[:i] + doc_text[i+1:]
-    pairs = extract_abbreviation_definition_pairs(doc_text=doc_text)
+    dict_from_csv = extract_abbreviation_definition_pairs(doc_text=doc_text)
     # pairs = ''
-    global dict_from_csv
-    dict_from_csv = OrderedDict(sorted(pairs.items(), key=lambda t: t[0]))
+    # global dict_from_csv
+    # dict_from_csv = OrderedDict(sorted(pairs.items(), key=lambda t: t[0]))
 
-    # Don't create global dict_from_csv. Call the function everytime a 
-    # file is uploaded or needed to create the .docx or .xlsx
+    # dict_from_csv = OrderedDict(sorted(pairs.items(), key=lambda t: t[0]))
+    return dict_from_csv
 
 #return dict_from_csv
-def getDictFromCSV():
-    global dict_from_csv
-    return dict_from_csv
+def getDictFromCSV(inputfile):
+    print()
+    print("filepath: ", inputfile)
+    print()
+    data = findAbbrev(inputfile)
+    print(data)
+    return data
 
 #opens document and returns acronyms found
 def findAcronyms(inputfile):
@@ -100,12 +104,16 @@ def findAcronyms(inputfile):
 
 #iterates through given document and creates an excel workbook
 #with given outputfile name
-def createXLSX(outfilename):
+def createXLSX(outfilename, acronymdata):
+    # sorts dictionary in alphabetical order
+    acronymdata = OrderedDict(sorted(acronymdata.items(), key=lambda t: t[0]))
+
+    # creates xlsx object
     workbook = xlsxwriter.Workbook("static/client/xlsx/" + outfilename)
     worksheet = workbook.add_worksheet()
 
     row = 0
-    for k,v in dict_from_csv.items():
+    for k,v in acronymdata.items():
         worksheet.write(row, 0, k)
         worksheet.write(row, 1, v)
         
@@ -114,12 +122,15 @@ def createXLSX(outfilename):
 
 #iterates through given document and creates a word docx
 #with given outputfile name
-def createDoc(outfilename):
+def createDoc(outfilename, acronymdata):
+    # sorts dictionary in alphabetical order
+    acronymdata = OrderedDict(sorted(acronymdata.items(), key=lambda t: t[0]))
+
     # creates document object with one row and two columns
     documentObj = Document()
     table = documentObj.add_table(rows=1, cols=2)
     # iterates through global dict_from_csv to create table
-    for k,v in dict_from_csv.items():
+    for k,v in acronymdata.items():
         row_cells = table.add_row().cells
         row_cells[0].text = k
         row_cells[1].text = v
