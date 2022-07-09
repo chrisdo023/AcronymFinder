@@ -20,7 +20,7 @@ dropzone = Dropzone(app)
 @app.route('/')
 def main():
     print('Request for index page received.')
-    return render_template('index.html')
+    return render_template('construction.html')
 
 @app.errorhandler(NotFound)
 def page_not_found_handler(HTTPException):
