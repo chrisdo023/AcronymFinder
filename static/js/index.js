@@ -20,25 +20,24 @@ function trash() {
 }
 
 function getAcronyms() {
-    // grab filename from dynamically added dz filename class
-    let filenames = document.getElementsByClassName("dz-filename");
-    let fn = filenames[0].innerText;
-    // const request = new XMLHttpRequest();
-    // request.onreadystatechange = function() {
-    //     if (request.readyState == XMLHttpRequest.DONE) {
-    //         alert(request.responseText);
-    //     }
-    // }
-    // request.open('GET', `/get-list/${JSON.stringify(fn)}`, true);
-    // request.send();
+    let flag = document.getElementById("view").className;
 
-    fetch(`/get-list/${JSON.stringify(fn)}`)
-        .then(function (response) {
-            return response.text();
-        }).then(function (data) {
-            document.getElementById("container").className = "container blur";
+    if (flag == "view-container shadow nonvisible"){
+        // grab filename from dynamically added dz filename class
+        let filenames = document.getElementsByClassName("dz-filename");
+        let fn = filenames[0].innerText;
 
-            document.getElementById("view").className = "view-container";
-            document.getElementById("view-content").innerHTML = data;
-        });
+        fetch(`/get-list/${JSON.stringify(fn)}`)
+            .then(function (response) {
+                return response.text();
+            }).then(function (data) {
+                document.getElementById("container").className = "container blur";
+
+                document.getElementById("view").className = "view-container shadow";
+                document.getElementById("view-content").innerHTML = data;
+            });
+    } else {
+        document.getElementById("container").className = "container";
+        document.getElementById("view").className = "view-container shadow nonvisible";        
+    }
 }
