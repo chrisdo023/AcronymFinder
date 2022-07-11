@@ -145,6 +145,40 @@ label:hover, label:active {
 100% { opacity: 1; }
 }
 
+/* Fade out
+.fade-out-image {
+    animation: fadeOut 1s;
+    -webkit-animation: fadeOut 1s;
+    -moz-animation: fadeOut 1s;
+    -o-animation: fadeOut 1s;
+    -ms-animation: fadeOut 1s;
+}
+
+@keyframes fadeOut {
+    100% {opacity: 0; }
+    0% {opacity: 1; }
+}
+
+@-moz-keyframes fadeOut {
+    100% {opacity: 0; }
+    0% {opacity: 1; }
+}
+
+@-webkit-keyframes fadeOut {
+    100% {opacity: 0; }
+    0% {opacity: 1; }
+}
+
+@-o-keyframes fadeOut {
+    100% {opacity: 0; }
+    0% {opacity: 1; }
+}
+
+@-ms-keyframes fadeOut {
+    100% {opacity: 0; }
+    0% {opacity: 1; }
+} */
+
 .row:after {
     content: "";
     display: table;
@@ -242,6 +276,12 @@ label:hover, label:active {
     display: none;
 }
 
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+}
+
 .view-container {
     padding: 30px;
     background: #fff;
@@ -258,6 +298,7 @@ label:hover, label:active {
 .blur {
     -webkit-filter: blur(2.5px); /* Chrome, Safari, Opera */
     filter: blur(2.5px);
+    pointer-events: none;;
 }
 
 .highlight {

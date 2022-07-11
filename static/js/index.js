@@ -33,11 +33,22 @@ function getAcronyms() {
             }).then(function (data) {
                 document.getElementById("container").className = "container blur";
 
-                document.getElementById("view").className = "view-container shadow";
-                document.getElementById("view-content").innerHTML = data;
+                document.getElementById("view").className = "view-container fade-in-image shadow";
+                // document.getElementById("view-content").innerHTML = data;
             });
     } else {
         document.getElementById("container").className = "container";
-        document.getElementById("view").className = "view-container shadow nonvisible";        
+        document.getElementById("view").className = "view-container fade-in-image shadow nonvisible";        
     }
 }
+
+// Event listeners
+window.addEventListener('click', function(e){   
+    if (document.getElementById('view').contains(e.target)){
+      // Clicked in box
+    } else{
+      // Clicked outside the box
+      document.getElementById("container").className = "container";
+      document.getElementById("view").className = "view-container shadow nonvisible";   
+    }
+  });
