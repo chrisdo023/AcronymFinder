@@ -85,6 +85,7 @@ def get_xlsx(fn):
 
     createXLSX(filename, data)
 
+    filename = (filename).split(".docx")[0] + ".xlsx"
     try:
         return send_from_directory(app.config["CLIENT_XLSX"], path=filename, as_attachment=True)
     except FileNotFoundError:

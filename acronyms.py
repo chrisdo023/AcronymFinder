@@ -105,11 +105,12 @@ def findAcronyms(inputfile):
 #iterates through given document and creates an excel workbook
 #with given outputfile name
 def createXLSX(outfilename, acronymdata):
+    filename = (outfilename).split(".docx")[0] + ".xlsx"
+
     # sorts dictionary in alphabetical order
     acronymdata = OrderedDict(sorted(acronymdata.items(), key=lambda t: t[0]))
-
     # creates xlsx object
-    workbook = xlsxwriter.Workbook("static/client/xlsx/" + outfilename)
+    workbook = xlsxwriter.Workbook("static/client/xlsx/" + filename)
     worksheet = workbook.add_worksheet()
 
     row = 0

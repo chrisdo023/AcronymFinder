@@ -55,57 +55,62 @@
             <div></div>
             </div>
             <div class="column column-action" id="action-one">
-               <i title="Download Word" class="fa-regular fa-file-word" onclick="getDocx()" id="ellipsis-one" style=""></i>
-               <i title="Download Excel" class="fa-regular fa-file-excel" onclick="getXLSX()" id="ellipsis-one" style=""></i>
-               <i title="View Document" class="fa-regular fa-eye" onclick="getAcronyms()"></i>
+               <i title="Download Word" class="fa-regular fa-file-word" onclick="getDocx()" id="ellipsis-one"></i>
+               <i title="Download Excel" class="fa-regular fa-file-excel" onclick="getXLSX()" id="ellipsis-one"></i>
+               <i title="View/Edit Document" class="fa-regular fa-eye" onclick="getAcronyms()"></i>
                <i title="Delete" class="fa-regular fa-trash-can" onclick="trash()"></i>
                <!-- Create a How To on an explaination on what the buttons do at the bottom of the page -->
             </div>
          </div>
          <div class="line nonvisible" id="line-one"></div>
-
-         <div class="row fade-in-image nonvisible" style="width: 100%; text-align: center;" id="file-two">
-            <div class="column column-name" style="">
-            <div></div>
-            </div>
-            <div class="column column-date" style="">
-            <div></div>
-            </div>
-            <div class="column column-size" style="">
-            <div></div>
-            </div>
-            <div class="column column-action" style="" id="action-two">
-               <i class="fa-solid fa-ellipsis" onclick="openMenu(this)" id="ellipsis-two"></i>
-            </div>
-         </div>
-         <div class="line nonvisible" id="line-two"></div>
-
-         <div class="row fade-in-image nonvisible" style="width: 100%; text-align: center;" id="file-three">
-            <div class="column column-name" style="">
-            <div></div>
-            </div>
-            <div class="column column-date" style="">
-            <div></div>
-            </div>
-            <div class="column column-size" style="">
-            <div></div>
-            </div>
-            <div class="column column-action" style="" id="action-three">
-               <i class="fa-solid fa-ellipsis" onclick="openMenu(this)" id="ellipsis-three"></i>
-            </div>
-         </div>
-         <div class="line nonvisible" id="line-three"></div>
       </div>
    </div>
-<!-- <div class="view-container nonvisible" id="view"> -->
+   <!-- <div class="view-container nonvisible" id="view"> -->
    <div class="view-container shadow fade-in-image nonvisible" id="view">
-      <h2>Shadow with 1 property</h2>
-      <pre>box-shadow: 0 7px 30px <span class="highlight">-10px</span>
-         rgba(150,170,180,0.5);
-      </pre>
-      <div id="view-content"></div>
+      <div class="slideshow-container">
+         <div class="mySlides" style="background-color: #e62636; border-radius: 20px 20px 0 0; text-align: center;" id="page-1">
+            <div class="row fade-in-image" id="view-row-1">
+               <div class="column column-shortform" style="color: white; font-weight: bold;">
+                  <div>Short Form</div>
+               </div>
+               <div class="column column-longform" style="color: white; font-weight: bold;">
+                  <div>Long Form</div>
+               </div>
+               <div class="column column-action" style="color: white; font-weight: bold;">
+                  <div>Action</div>
+               </div>
+            </div>
+
+            <div class="row fade-in-image" id="view-row-one" style="background-color: white;">
+               <div class="column column-shortform">
+                  <div>WIP</div>
+               </div>
+               <div class="column column-longform">
+                  <div>Work In Progress</div>
+               </div>
+               <div class="column column-action">
+                  <i title="Edit" class="fa-solid fa-pen" onclick="editLongform(this)"></i>
+               </div>
+            </div>
+            <div class="line" id="line-two"></div>            
+         </div>
+         
+         <!-- <div class="mySlides">
+            <div></div>
+         </div> -->
+         
+         <a class="prev" onclick="plusSlides(-1)">❮</a>
+         <a class="next" onclick="plusSlides(1)">❯</a>
+         
+         </div>
+         
+         <div style="text-align:center" id="dot-container">
+           <span class="dot" onclick="currentSlide(1)"></span> 
+           <!-- <span class="dot" onclick="currentSlide(2)"></span> 
+           <span class="dot" onclick="currentSlide(3)"></span>  -->
+         </div>
+      </div>
    </div>
-   
    <script>
    $(document).ready(function(){
       Dropzone.autoDiscover = false;
