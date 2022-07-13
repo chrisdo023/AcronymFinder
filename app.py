@@ -3,7 +3,7 @@ import json
 import csv
 
 from flask import Flask
-from flask import render_template, request, jsonify, send_from_directory, abort
+from flask import render_template, request, jsonify, send_from_directory, abort, make_response, session
 from flask_dropzone import Dropzone
 from werkzeug.utils import secure_filename
 from acronyms import findAbbrev, findAcronyms, createXLSX, createDoc, getDictFromCSV
@@ -26,6 +26,26 @@ def main():
 def page_not_found_handler(HTTPException):
     return render_template('404.html'), 404
 
+@app.route("/set_cookie/<cookie_name>/<cookie_value>")
+def set_cookies(cookie_name, cookie_value):
+    resp = make_response("success")
+    cookie_value = json.loads(cookie_value)
+    if(cookie_value == 'True'):
+        resp.set_cookie('DarkMode', 'True')
+    elif(cookie_value == 'False'):
+        resp.set_cookie('DarkMode', 'False')
+    return resp
+
+@app.route("/get_cookie/<string:cookie_name>")
+def get_cookies(cookie_name):
+    cookie_value = request.cookies.get('DarkMode', None)
+    return f"{cookie_value}"
+
+@app.route("/delete_cookie")
+def delete_cookie(cookie_name):
+    resp = make_response("del success")
+    resp.delete_cookie(cookie_name)
+    return resp
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():

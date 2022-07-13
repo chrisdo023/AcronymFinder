@@ -115,6 +115,13 @@ function toggleDisplay() {
         } else if(document.getElementById("dropzone").className == "dropzone dz-clickable dark"){
             document.getElementById("dropzone").className = "dropzone dz-clickable";
         }
+
+        fetch(`/set_cookie/${JSON.stringify("DarkMode")}/${JSON.stringify("False")}`)
+        .then(function (response) {
+            return response.text();
+        }).then(function (data) {
+            console.log(data)
+        });
     } else {
         document.body.className = "dark";
         document.getElementById("display-mode").innerText = "Dark Mode";
@@ -124,6 +131,13 @@ function toggleDisplay() {
             document.getElementById("dropzone").className = "dropzone dz-clickable dark";
         }
         document.getElementById("action-one").className = "column column-action dark";
+
+        fetch(`/set_cookie/${JSON.stringify("DarkMode")}/${JSON.stringify("True")}`)
+        .then(function (response) {
+            return response.text();
+        }).then(function (data) {
+            console.log(data)
+        });
     }
 }
 
@@ -169,3 +183,26 @@ window.addEventListener('click', function(e){
         }  
     }
 });
+
+// Check for cookies when page loads
+function checkCookies(){
+    fetch(`/get_cookie/${JSON.stringify("darkmode")}`)
+    .then(function (response) {
+        return response.text();
+    }).then(function (data) {
+        console.log(data)
+        if(data == 'True'){
+            document.body.className = "dark";
+            document.getElementById("display-mode").innerText = "Dark Mode";
+            if(document.getElementById("dropzone").className == "dropzone dz-clickable dz-started dz-max-files-reached"){
+                document.getElementById("dropzone").className = "dropzone dz-clickable dz-started dz-max-files-reached dark";
+            } else if(document.getElementById("dropzone").className == "dropzone dz-clickable"){
+                document.getElementById("dropzone").className = "dropzone dz-clickable dark";
+            }
+            document.getElementById("action-one").className = "column column-action dark";            
+        }
+    });
+}
+
+// Run at start of page
+checkCookies();
