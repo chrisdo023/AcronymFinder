@@ -67,7 +67,7 @@
    </div>
    <!-- <div class="view-container nonvisible" id="view"> -->
    <div class="view-container shadow fade-in-image nonvisible" id="view">
-      <div class="slideshow-container">
+      <div class="slideshow-container" id="slideshow-container">
          <div class="mySlides" style="background-color: #e62636; border-radius: 20px 20px 0 0; text-align: center;" id="page-1">
             <div class="row fade-in-image" id="view-row-1">
                <div class="column column-shortform" style="color: white; font-weight: bold;">
@@ -102,14 +102,11 @@
          <a class="prev" onclick="plusSlides(-1)">❮</a>
          <a class="next" onclick="plusSlides(1)">❯</a>
          
-         </div>
-         
-         <div style="text-align:center" id="dot-container">
-           <span class="dot" onclick="currentSlide(1)"></span> 
-           <!-- <span class="dot" onclick="currentSlide(2)"></span> 
-           <span class="dot" onclick="currentSlide(3)"></span>  -->
-         </div>
       </div>
+      <div style="text-align:center" id="dot-container">
+         <span class="dot" onclick="currentSlide(1)"></span> 
+      </div>
+   </div>
    </div>
    <script>
    $(document).ready(function(){

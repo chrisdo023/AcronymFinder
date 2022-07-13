@@ -196,35 +196,11 @@ label:hover, label:active {
     height: 30px;
 }
 
-.fa-ellipsis {
+.fa-ellipsis, .fa-file-word, .fa-file-excel, .fa-eye, .fa-trash-can {
     padding: 2.5px;
     color: black; 
     font-size: 25px;
     display: block;
-}
-
-.fa-file-word {
-    padding: 2.5px;
-    color: black; 
-    font-size: 25px;
-}
-
-.fa-file-excel {
-    padding: 2.5px;
-    color: black; 
-    font-size: 25px;
-}
-
-.fa-eye {
-    padding: 2.5px;
-    color: black; 
-    font-size: 25px;   
-}
-
-.fa-trash-can {
-    padding: 2.5px;
-    color: black; 
-    font-size: 25px;    
 }
 
 .fa-trash-can:hover {
@@ -232,7 +208,7 @@ label:hover, label:active {
     transform: scale(1.1);    
 }
 
-.fa-pen {
+.fa-pen, .fa-floppy-disk {
     padding: 5px;
     color: black; 
     font-size: 15px;    
@@ -241,12 +217,6 @@ label:hover, label:active {
 .fa-pen:hover {
     color: #e62636;
     transform: scale(1.1);    
-}
-
-.fa-floppy-disk {
-    padding: 5px;
-    color: black; 
-    font-size: 15px; 
 }
 
 .fa-floppy-disk:hover {
@@ -296,10 +266,6 @@ label:hover, label:active {
     display: none;
 }
 
-.border {
-    border: 1px solid black;
-}
-
 .hidden {
     visibility: hidden;
     opacity: 0;
@@ -309,7 +275,7 @@ label:hover, label:active {
 .view-container {
     padding-bottom: 30px;
     background: #fff;
-    width: 800px;
+    width: 825px;
     height: 650px;
     border-radius: 20px;
     margin: 100px auto;
@@ -377,20 +343,20 @@ img {vertical-align: middle;}
 
 /* The dots/bullets/indicators */
 .dot {
-    cursor: pointer;
+    /* cursor: pointer; */
     height: 10px;
     width: 10px;
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
+    margin: 1px;
 }
 
-.active, .dot:hover {
+.active {
     background-color: #717171;
 }
-
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-.prev, .next,.text {font-size: 11px}
-}
+/* 
+.dot:hover {
+    background-color: #717171;
+} */

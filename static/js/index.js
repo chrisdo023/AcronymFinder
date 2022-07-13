@@ -23,7 +23,10 @@ function trash() {
 function getAcronyms() {
     let flag = document.getElementById("view").className;
 
-    if (flag == "view-container shadow nonvisible"){
+    if (flag == "view-container fade-in-image shadow data nonvisible"){
+        document.getElementById("view").className = "view-container fade-in-image shadow data";    
+        alert("clicked");
+    } else {
         // grab filename from dynamically added dz filename class
         let filenames = document.getElementsByClassName("dz-filename");
         let fn = filenames[0].innerText;
@@ -34,41 +37,49 @@ function getAcronyms() {
             }).then(function (data) {
                 document.getElementById("container").className = "container blur";
 
-                document.getElementById("view").className = "view-container fade-in-image shadow";
+                document.getElementById("view").className = "view-container fade-in-image shadow data inside";
                 
                 const jsonObj = JSON.parse(data);
                 var count = 1;
                 var dot = 1;
                 var page = 1;
                 var row = 1;
-                // for(let key in jsonObj){
-                //     // var divstr = '<div class="row fade-in-image" id="view-row-' + count + '" style="background-color: white;"><div class="column column-shortform"><div>' + key + '</div></div><div class="column column-longform"><div>' + jsonObj[key] + '</div></div><div class="column column-action"><i title="Edit" class="fa-solid fa-pen" onclick="editLongform(this)"></i></div></div><div class="line" id="line-"' + count + '></div>';
-                //     // document.getElementById("view-row-" + `${row}`).insertAdjacentHTML('afterend', divstr);
 
-                //     if(count%10 == 0){
-                //         page++;
-                //         row++;
-                //         // Add new slide after previous slide
-                //         var slidediv = '<div class="mySlides" style="background-color: #e62636; border-radius: 20px 20px 0 0; text-align: center;" id="page-"' + page + '></div>';
-                //         var oldpage = "page-" + `${page-1}`;
-                //         document.getElementById(oldpage).insertAdjacentHTML('afterend', slidediv);
+                for(let key in jsonObj){
+                    if(count%10 == 0){
+                        page++;
+                        var divtag = document.createElement('div');
+                        divtag.className = "mySlides";
+                        divtag.style = "background-color: #e62636; border-radius: 20px 20px 0 0; text-align: center;"
+                        divtag.id = '"page-' + page + '"';
+                        document.getElementById('slideshow-container').appendChild(divtag);
 
-                //         // Add header to the new slide
-                //         var newpage = "page-" + page
-                //         var headerdiv = `<div class="row fade-in-image" id="view-row-"` + `${row}` + `><div class="column column-shortform" style="color: white; font-weight: bold;"><div>Short Form</div></div><div class="column column-longform" style="color: white; font-weight: bold;"><div>Long Form</div></div><div class="column column-action" style="color: white; font-weight: bold;"><div>Action</div></div></div>`
-                //         document.getElementById(newpage).appendChild(headerdiv)
+                        // divtag.className = "row fade-in-image";
+                        // divtag.id = "view-row-" + row.toString(2);
+                        // document.getElementById('"page-' + page + '"').appendChild(divtag);
 
-                //         // var spanstr = '<span class="dot" onclick="currentSlide(' + `${dot}` + ')"></span>'; 
-                //         // document.getElementById('dot-container').appendChild(spanstr);
-                //         // dot++;
-                //     }
+                        var spantag = document.createElement('span');
+                        spantag.className = "dot";
+                        // spantag.onclick = function() {
+                        //     currentSlide(dot.toString(2));
+                        // };
+                        document.getElementById('dot-container').appendChild(spantag); 
+                        dot++;  
+                    }
 
-                //     count++;
-                // }
+                    count++;
+                }
+
+                // var atagprev = document.createElement('a');
+                // atagprev.class="prev";
+                // atagprev.onclick = plusSlides(-1);
+                // document.getElementById('"page-' + page + '"').appendChild(atagprev);
+
+                // var atagnext = document.createElement('a');
+                // atagnext.class="next";
+                // atagnext.onclick = plusSlides(1);
+                // document.getElementById('"page-' + page + '"').appendChild(atagnext);
             });
-    } else {
-        document.getElementById("container").className = "container";
-        document.getElementById("view").className = "view-container fade-in-image shadow nonvisible";        
     }
 }
 
@@ -124,6 +135,10 @@ window.addEventListener('click', function(e){
     } else{
       // Clicked outside the box
       document.getElementById("container").className = "container";
-      document.getElementById("view").className = "view-container shadow nonvisible";   
+      let flag = document.getElementById("view");   
+
+      if (flag.className == "view-container fade-in-image shadow data inside"){
+        flag.className = "view-container fade-in-image shadow data nonvisible";
+      }
     }
 });
