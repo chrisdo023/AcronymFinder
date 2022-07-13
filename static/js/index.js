@@ -41,30 +41,30 @@ function getAcronyms() {
                 var dot = 1;
                 var page = 1;
                 var row = 1;
-                // for(let key in jsonObj){
-                //     // var divstr = '<div class="row fade-in-image" id="view-row-' + count + '" style="background-color: white;"><div class="column column-shortform"><div>' + key + '</div></div><div class="column column-longform"><div>' + jsonObj[key] + '</div></div><div class="column column-action"><i title="Edit" class="fa-solid fa-pen" onclick="editLongform(this)"></i></div></div><div class="line" id="line-"' + count + '></div>';
-                //     // document.getElementById("view-row-" + `${row}`).insertAdjacentHTML('afterend', divstr);
+                for(let key in jsonObj){
+                    // var divstr = '<div class="row fade-in-image" id="view-row-' + count + '" style="background-color: white;"><div class="column column-shortform"><div>' + key + '</div></div><div class="column column-longform"><div>' + jsonObj[key] + '</div></div><div class="column column-action"><i title="Edit" class="fa-solid fa-pen" onclick="editLongform(this)"></i></div></div><div class="line" id="line-"' + count + '></div>';
+                    // document.getElementById("view-row-" + `${row}`).insertAdjacentHTML('afterend', divstr);
 
-                //     if(count%10 == 0){
-                //         page++;
-                //         row++;
-                //         // Add new slide after previous slide
-                //         var slidediv = '<div class="mySlides" style="background-color: #e62636; border-radius: 20px 20px 0 0; text-align: center;" id="page-"' + page + '></div>';
-                //         var oldpage = "page-" + `${page-1}`;
-                //         document.getElementById(oldpage).insertAdjacentHTML('afterend', slidediv);
+                    if(count%10 == 0){
+                        page++;
+                        row++;
+                        // Add new slide after previous slide
+                        var slidediv = '<div class="mySlides" style="background-color: #e62636; border-radius: 20px 20px 0 0; text-align: center;" id="page-"' + page + '></div>';
+                        var oldpage = "page-" + `${page-1}`;
+                        document.getElementById(oldpage).insertAdjacentHTML('afterend', slidediv);
 
-                //         // Add header to the new slide
-                //         var newpage = "page-" + page
-                //         var headerdiv = `<div class="row fade-in-image" id="view-row-"` + `${row}` + `><div class="column column-shortform" style="color: white; font-weight: bold;"><div>Short Form</div></div><div class="column column-longform" style="color: white; font-weight: bold;"><div>Long Form</div></div><div class="column column-action" style="color: white; font-weight: bold;"><div>Action</div></div></div>`
-                //         document.getElementById(newpage).appendChild(headerdiv)
+                        // Add header to the new slide
+                        var newpage = "page-" + page
+                        var headerdiv = `<div class="row fade-in-image" id="view-row-"` + `${row}` + `><div class="column column-shortform" style="color: white; font-weight: bold;"><div>Short Form</div></div><div class="column column-longform" style="color: white; font-weight: bold;"><div>Long Form</div></div><div class="column column-action" style="color: white; font-weight: bold;"><div>Action</div></div></div>`
+                        document.getElementById(newpage).appendChild(headerdiv)
 
-                //         // var spanstr = '<span class="dot" onclick="currentSlide(' + `${dot}` + ')"></span>'; 
-                //         // document.getElementById('dot-container').appendChild(spanstr);
-                //         // dot++;
-                //     }
+                        // var spanstr = '<span class="dot" onclick="currentSlide(' + `${dot}` + ')"></span>'; 
+                        // document.getElementById('dot-container').appendChild(spanstr);
+                        // dot++;
+                    }
 
-                //     count++;
-                // }
+                    count++;
+                }
             });
     } else {
         document.getElementById("container").className = "container";
