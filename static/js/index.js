@@ -23,63 +23,66 @@ function trash() {
 function getAcronyms() {
     let flag = document.getElementById("view").className;
 
-    if (flag == "view-container fade-in-image shadow data nonvisible"){
-        document.getElementById("view").className = "view-container fade-in-image shadow data";    
-        alert("clicked");
-    } else {
+    if (flag == "view-container shadow nonvisible"){
         // grab filename from dynamically added dz filename class
         let filenames = document.getElementsByClassName("dz-filename");
         let fn = filenames[0].innerText;
+        if (document.getElementById("dot-container").children.length == 1){
+            fetch(`/get-list/${JSON.stringify(fn)}`)
+                .then(function (response) {
+                    return response.text();
+                }).then(function (data) {
+                    document.getElementById("container").className = "container blur";
+                    document.getElementById("view").className = "view-container fade-in-image shadow";
+                    
+                    const jsonObj = JSON.parse(data);
+                    var count = 1;
+                    var dot = 1;
+                    var page = 1;
+                    var row = 1;
 
-        fetch(`/get-list/${JSON.stringify(fn)}`)
-            .then(function (response) {
-                return response.text();
-            }).then(function (data) {
-                document.getElementById("container").className = "container blur";
+                    for(let key in jsonObj){
+                        if(count%10 == 0){
+                            page++;
+                            var divtag = document.createElement('div');
+                            divtag.className = "mySlides";
+                            divtag.style = "background-color: #e62636; border-radius: 20px 20px 0 0; text-align: center;"
+                            divtag.id = '"page-' + page + '"';
+                            document.getElementById('slideshow-container').appendChild(divtag);
 
-                document.getElementById("view").className = "view-container fade-in-image shadow data inside";
-                
-                const jsonObj = JSON.parse(data);
-                var count = 1;
-                var dot = 1;
-                var page = 1;
-                var row = 1;
+                            // divtag.className = "row fade-in-image";
+                            // divtag.id = "view-row-" + row.toString(2);
+                            // document.getElementById('"page-' + page + '"').appendChild(divtag);
 
-                for(let key in jsonObj){
-                    if(count%10 == 0){
-                        page++;
-                        var divtag = document.createElement('div');
-                        divtag.className = "mySlides";
-                        divtag.style = "background-color: #e62636; border-radius: 20px 20px 0 0; text-align: center;"
-                        divtag.id = '"page-' + page + '"';
-                        document.getElementById('slideshow-container').appendChild(divtag);
+                            var spantag = document.createElement('span');
+                            spantag.className = "dot";
+                            // spantag.onclick = function() {
+                            //     currentSlide(dot.toString(2));
+                            // };
+                            document.getElementById('dot-container').appendChild(spantag); 
+                            dot++;  
+                        }
 
-                        // divtag.className = "row fade-in-image";
-                        // divtag.id = "view-row-" + row.toString(2);
-                        // document.getElementById('"page-' + page + '"').appendChild(divtag);
-
-                        var spantag = document.createElement('span');
-                        spantag.className = "dot";
-                        // spantag.onclick = function() {
-                        //     currentSlide(dot.toString(2));
-                        // };
-                        document.getElementById('dot-container').appendChild(spantag); 
-                        dot++;  
+                        count++;
                     }
 
-                    count++;
-                }
+                    // var atagprev = document.createElement('a');
+                    // atagprev.class="prev";
+                    // atagprev.onclick = plusSlides(-1);
+                    // document.getElementById('"page-' + page + '"').appendChild(atagprev);
 
-                // var atagprev = document.createElement('a');
-                // atagprev.class="prev";
-                // atagprev.onclick = plusSlides(-1);
-                // document.getElementById('"page-' + page + '"').appendChild(atagprev);
-
-                // var atagnext = document.createElement('a');
-                // atagnext.class="next";
-                // atagnext.onclick = plusSlides(1);
-                // document.getElementById('"page-' + page + '"').appendChild(atagnext);
-            });
+                    // var atagnext = document.createElement('a');
+                    // atagnext.class="next";
+                    // atagnext.onclick = plusSlides(1);
+                    // document.getElementById('"page-' + page + '"').appendChild(atagnext);
+                });
+        } else {
+            document.getElementById("container").className = "container blur";
+            document.getElementById("view").className = "view-container fade-in-image shadow";
+        }
+    } else {
+        document.getElementById("container").className = "container";
+        document.getElementById("view").className = "view-container fade-in-image shadow nonvisible";        
     }
 }
 
@@ -133,12 +136,12 @@ window.addEventListener('click', function(e){
     if (document.getElementById('view').contains(e.target)){
       // Clicked in box
     } else{
-      // Clicked outside the box
-      document.getElementById("container").className = "container";
-      let flag = document.getElementById("view");   
-
-      if (flag.className == "view-container fade-in-image shadow data inside"){
-        flag.className = "view-container fade-in-image shadow data nonvisible";
-      }
+        if (document.getElementById('fa-eye').contains(e.target)){
+            // Clicked on View btn
+        } else {
+            // Clicked outside the box
+            document.getElementById("container").className = "container";
+            document.getElementById("view").className = "view-container shadow nonvisible"; 
+        }  
     }
 });
