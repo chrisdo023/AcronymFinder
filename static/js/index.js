@@ -103,6 +103,30 @@ function editLongform(e) {
     }
 }
 
+// Toggle display function
+function toggleDisplay() {
+    // Checks if body is dark, else set to dark mode
+    if(document.body.className == "dark"){
+        document.body.className = ""
+        document.getElementById("display-mode").innerText = "Light Mode";
+        document.getElementById("action-one").className = "column column-action";
+        if(document.getElementById("dropzone").className == "dropzone dz-clickable dz-started dz-max-files-reached dark"){
+            document.getElementById("dropzone").className = "dropzone dz-clickable dz-started dz-max-files-reached";
+        } else if(document.getElementById("dropzone").className == "dropzone dz-clickable dark"){
+            document.getElementById("dropzone").className = "dropzone dz-clickable";
+        }
+    } else {
+        document.body.className = "dark";
+        document.getElementById("display-mode").innerText = "Dark Mode";
+        if(document.getElementById("dropzone").className == "dropzone dz-clickable dz-started dz-max-files-reached"){
+            document.getElementById("dropzone").className = "dropzone dz-clickable dz-started dz-max-files-reached dark";
+        } else if(document.getElementById("dropzone").className == "dropzone dz-clickable"){
+            document.getElementById("dropzone").className = "dropzone dz-clickable dark";
+        }
+        document.getElementById("action-one").className = "column column-action dark";
+    }
+}
+
 // Slide show
 let slideIndex = 1;
 showSlides(slideIndex);

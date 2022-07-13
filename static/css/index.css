@@ -2,6 +2,12 @@
     background-color: #f3f3f3;
 } */
 
+.dark {
+    background-color: rgb(40, 44, 52) !important;
+    color: white !important;
+    border-color: white !important;
+}
+
 .dropzone {
     min-height: 400px;
     text-align: center;
@@ -198,7 +204,6 @@ label:hover, label:active {
 
 .fa-ellipsis, .fa-file-word, .fa-file-excel, .fa-eye, .fa-trash-can {
     padding: 2.5px;
-    color: black; 
     font-size: 25px;
     display: block;
 }
@@ -243,6 +248,11 @@ label:hover, label:active {
 .fa-file-word:hover > .word-message {
     display:block !important;
     z-index: 10;
+}
+
+.display-mode:hover {
+    color: rgb(0, 200, 255);
+    cursor: pointer;
 }
 
 .excel-message {

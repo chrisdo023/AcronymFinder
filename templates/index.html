@@ -19,7 +19,7 @@
             </div>
          </div>
       </div>
-      <div class="dropzone" style="border-style:dashed;">
+      <div class="dropzone" style="border-style:dashed;" id="dropzone">
          <div class="dz-message needsclick" style="align-items : center; justify-content: center;">
             <h3 style="align-items:center; justify-content:center;">Drag and drop file here</h3>
             <h4>or</h4>
@@ -107,6 +107,9 @@
          <span class="dot" onclick="currentSlide(1)"></span> 
       </div>
    </div>
+   </div>
+   <div id="display-container" style="text-align: center; bottom: 10px; left: 50%; transform: translate(-50%,-50%); position: absolute;">
+      <div title="Toggle display" style="font-weight: bold;">Display: <i class="display-mode" onclick="toggleDisplay()" id="display-mode">Light Mode</i></div>
    </div>
    <script>
    $(document).ready(function(){
