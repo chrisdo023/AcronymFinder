@@ -47,6 +47,35 @@ def yield_lines_from_doc(doc_text):
         yield line.strip()
 
 
+#### DEALING WITH EDGE CASES ####
+
+## Number in short form (candidate) ##
+# Gets called if candidate contains a number
+# Case 1: number has letter preceding it CAC2S --> CACCS
+# Case 2: number does not have letter preceding it 3MC --> MMMC
+# TODO are there any abbrevs that start with two numbers?
+def preprocess_numbers(candidate):
+    output = ""
+    startindex = 0
+    # deal with case 2 first
+    if candidate[0].isdigit() and candidate[1].isalpha(): # such as 3MC
+        # append correct number of char to output
+        for i in range(int(candidate[0])):
+            output += candidate[1]
+        startindex = 2 # skip first two chars when searching the rest of the string
+    # find any case 1's in the rest of the candidate string
+    for c in range(startindex, (len)(candidate)):
+        if candidate[c].isdigit() and candidate[c - 1].isalpha(): # such as CAC2S
+            output = output[:len(output) - 1] # removes last char from string, since it will be re-added
+            # append correct number of char to output
+            for i in range(int(candidate[c])):
+                output += candidate[c - 1]
+        else:
+            output += candidate[c]
+    return output
+
+
+
 def best_candidates(sentence):
     """
     :param sentence: line read from input file
@@ -102,6 +131,15 @@ def best_candidates(sentence):
             start = start + len(candidate) - len(candidate.lstrip())
             stop = stop - len(candidate) + len(candidate.rstrip())
             candidate = sentence[start:stop]
+
+            # Check if candidate has numbers, preprocess so CAC2S --> CACCS
+            hasnums = False
+            for c in candidate:
+                if c.isdigit():
+                    hasnums = True
+                    break
+            if hasnums:
+                candidate = preprocess_numbers(candidate)
 
             if conditions(candidate):
                 new_candidate = Candidate(candidate)
