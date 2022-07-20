@@ -30,6 +30,7 @@ def page_not_found_handler(HTTPException):
 def set_cookies(cookie_name, cookie_value):
     resp = make_response("success")
     cookie_value = json.loads(cookie_value)
+    print(cookie_value)
     if(cookie_value == 'True'):
         resp.set_cookie('DarkMode', 'True')
     elif(cookie_value == 'False'):

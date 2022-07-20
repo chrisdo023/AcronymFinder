@@ -109,12 +109,9 @@ function toggleDisplay() {
     if(document.body.className == "dark"){
         document.body.className = ""
         document.getElementById("display-mode").innerText = "Light Mode";
+
+        document.getElementById("dropzone").classList.remove("dark");
         document.getElementById("action-one").className = "column column-action";
-        if(document.getElementById("dropzone").className == "dropzone dz-clickable dz-started dz-max-files-reached dark"){
-            document.getElementById("dropzone").className = "dropzone dz-clickable dz-started dz-max-files-reached";
-        } else if(document.getElementById("dropzone").className == "dropzone dz-clickable dark"){
-            document.getElementById("dropzone").className = "dropzone dz-clickable";
-        }
 
         fetch(`/set_cookie/${JSON.stringify("DarkMode")}/${JSON.stringify("False")}`)
         .then(function (response) {
@@ -125,11 +122,8 @@ function toggleDisplay() {
     } else {
         document.body.className = "dark";
         document.getElementById("display-mode").innerText = "Dark Mode";
-        if(document.getElementById("dropzone").className == "dropzone dz-clickable dz-started dz-max-files-reached"){
-            document.getElementById("dropzone").className = "dropzone dz-clickable dz-started dz-max-files-reached dark";
-        } else if(document.getElementById("dropzone").className == "dropzone dz-clickable"){
-            document.getElementById("dropzone").className = "dropzone dz-clickable dark";
-        }
+
+        document.getElementById("dropzone").classList.add("dark");
         document.getElementById("action-one").className = "column column-action dark";
 
         fetch(`/set_cookie/${JSON.stringify("DarkMode")}/${JSON.stringify("True")}`)
@@ -186,6 +180,7 @@ window.addEventListener('click', function(e){
 
 // Check for cookies when page loads
 function checkCookies(){
+    // Parse through cookie data for DarkMode and Onboard
     fetch(`/get_cookie/${JSON.stringify("darkmode")}`)
     .then(function (response) {
         return response.text();
@@ -194,11 +189,7 @@ function checkCookies(){
         if(data == 'True'){
             document.body.className = "dark";
             document.getElementById("display-mode").innerText = "Dark Mode";
-            if(document.getElementById("dropzone").className == "dropzone dz-clickable dz-started dz-max-files-reached"){
-                document.getElementById("dropzone").className = "dropzone dz-clickable dz-started dz-max-files-reached dark";
-            } else if(document.getElementById("dropzone").className == "dropzone dz-clickable"){
-                document.getElementById("dropzone").className = "dropzone dz-clickable dark";
-            }
+            document.getElementById("dropzone").classList.add("dark");
             document.getElementById("action-one").className = "column column-action dark";            
         }
     });
