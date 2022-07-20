@@ -111,6 +111,7 @@ function toggleDisplay() {
         document.getElementById("display-mode").innerText = "Light Mode";
 
         document.getElementById("dropzone").classList.remove("dark");
+        document.getElementById("onboarding-container").classList.remove("o-dark");
         document.getElementById("action-one").className = "column column-action";
 
         fetch(`/set_cookie/${JSON.stringify("DarkMode")}/${JSON.stringify("False")}`)
@@ -124,6 +125,7 @@ function toggleDisplay() {
         document.getElementById("display-mode").innerText = "Dark Mode";
 
         document.getElementById("dropzone").classList.add("dark");
+        document.getElementById("onboarding-container").classList.add("o-dark");
         document.getElementById("action-one").className = "column column-action dark";
 
         fetch(`/set_cookie/${JSON.stringify("DarkMode")}/${JSON.stringify("True")}`)
@@ -135,7 +137,7 @@ function toggleDisplay() {
     }
 }
 
-// Slide show
+// View slide show
 let slideIndex = 1;
 showSlides(slideIndex);
 
@@ -150,6 +152,34 @@ function currentSlide(n) {
 function showSlides(n) {
     let i;
     let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}    
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+    }
+    for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+}
+
+// Onboard slide show
+let onboardSlideIndex = 1;
+showOnboardSlides(onboardSlideIndex);
+
+function plusOnboardSlides(n) {
+  showOnboardSlides(slideIndex += n);
+}
+
+function currentOnboardSlide(n) {
+  showOnboardSlides(slideIndex = n);
+}
+
+function showOnboardSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("myOnboardSlides");
     let dots = document.getElementsByClassName("dot");
     if (n > slides.length) {slideIndex = 1}    
     if (n < 1) {slideIndex = slides.length}
@@ -181,7 +211,6 @@ window.addEventListener('click', function(e){
 // Check for cookies when page loads
 function checkCookies(){
     // Parse through cookie data for DarkMode and Onboard
-    // fetch(`/get_cookie/${JSON.stringify("darkmode")}`)
     fetch(`/get_cookie/${JSON.stringify('DarkMode')}`)
     .then(function (response) {
         return response.text();
@@ -190,9 +219,21 @@ function checkCookies(){
             document.body.className = "dark";
             document.getElementById("display-mode").innerText = "Dark Mode";
             document.getElementById("dropzone").classList.add("dark");
+            document.getElementById("onboarding-container").classList.add("o-dark");
             document.getElementById("action-one").className = "column column-action dark";            
         }
     });
+
+    // fetch(`/get_cookie/${JSON.stringify('Onboard')}`)
+    // .then(function (response) {
+    //     return response.text();
+    // }).then(function (data) {
+    //     if(data == 'True'){
+    //         alert("No Onboard")          
+    //     } else{
+    //         alert("Onboard")
+    //     }
+    // });
 }
 
 // Run at start of page

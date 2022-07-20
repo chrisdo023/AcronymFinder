@@ -241,7 +241,7 @@ label:hover, label:active {
 }
 
 .fa-eye:hover {
-    color: black;
+    color: salmon;
     transform: scale(1.1);
 }
 
@@ -370,3 +370,40 @@ img {vertical-align: middle;}
 .dot:hover {
     background-color: #717171;
 } */
+
+/* Onboarding CSS */
+.onboarding-container {
+    padding-bottom: 30px;
+    background-color: #fff;
+    width: 500px;
+    height: 650px;
+    border-radius: 20px;
+    margin: 100px auto;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+}
+
+.o-dark {
+    background-color: rgb(28, 30, 36) !important;
+    color: white !important;   
+}
+
+.fa-table-cells {
+    padding: 2.5px;
+    display: block;
+    color: forestgreen;
+}
+
+.fa-upload {
+    padding: 2.5px;
+    display: block;
+    color: #e62636;
+}
+
+.fa-lightbulb {
+    padding: 2.5px;
+    display: block;
+    color: gold;    
+}
