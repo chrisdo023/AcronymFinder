@@ -29,24 +29,12 @@ def page_not_found_handler(HTTPException):
 @app.route("/set_cookie/<cookie_name>/<cookie_value>")
 def set_cookies(cookie_name, cookie_value):
     resp = make_response("success")
-    cookie_value = json.loads(cookie_value)
-    print(cookie_value)
-    if(cookie_value == 'True'):
-        resp.set_cookie('DarkMode', 'True')
-    elif(cookie_value == 'False'):
-        resp.set_cookie('DarkMode', 'False')
+    resp.set_cookie(json.loads(cookie_name), json.loads(cookie_value))
     return resp
 
 @app.route("/get_cookie/<string:cookie_name>")
 def get_cookies(cookie_name):
-    cookie_value = request.cookies.get('DarkMode', None)
-    return f"{cookie_value}"
-
-@app.route("/delete_cookie")
-def delete_cookie(cookie_name):
-    resp = make_response("del success")
-    resp.delete_cookie(cookie_name)
-    return resp
+    return request.cookies.get(json.loads(cookie_name), None)
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():

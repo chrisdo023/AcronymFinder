@@ -181,11 +181,11 @@ window.addEventListener('click', function(e){
 // Check for cookies when page loads
 function checkCookies(){
     // Parse through cookie data for DarkMode and Onboard
-    fetch(`/get_cookie/${JSON.stringify("darkmode")}`)
+    // fetch(`/get_cookie/${JSON.stringify("darkmode")}`)
+    fetch(`/get_cookie/${JSON.stringify('DarkMode')}`)
     .then(function (response) {
         return response.text();
     }).then(function (data) {
-        console.log(data)
         if(data == 'True'){
             document.body.className = "dark";
             document.getElementById("display-mode").innerText = "Dark Mode";
