@@ -48,15 +48,31 @@ def findAbbrev(inputfile):
     # dict_from_csv = OrderedDict(sorted(pairs.items(), key=lambda t: t[0]))
 
     # dict_from_csv = OrderedDict(sorted(pairs.items(), key=lambda t: t[0]))
+
     return dict_from_csv
+
+#revert back to number short forms
+def revertToNumber(word):
+    counter = 0
+    listOfWords = 0
+    if(word[0] == word[1]):
+        for char in word:
+            if(word[0] == char):
+                counter += 1
+            else:
+                break
+        
+        word = word[:counter] + str(counter) + word[counter:]
+        ch = word[counter-1]
+        listOfWords = word.split(ch, counter-1)
+        if len(listOfWords) > 0:
+            word = listOfWords[len(listOfWords)-1]
+
+    return word
 
 #return dict_from_csv
 def getDictFromCSV(inputfile):
-    print()
-    print("filepath: ", inputfile)
-    print()
     data = findAbbrev(inputfile)
-    print(data)
     return data
 
 #opens document and returns acronyms found
@@ -115,7 +131,7 @@ def createXLSX(outfilename, acronymdata):
 
     row = 0
     for k,v in acronymdata.items():
-        worksheet.write(row, 0, k)
+        worksheet.write(row, 0, revertToNumber(k))
         worksheet.write(row, 1, v)
         
         row += 1
@@ -133,7 +149,7 @@ def createDoc(outfilename, acronymdata):
     # iterates through global dict_from_csv to create table
     for k,v in acronymdata.items():
         row_cells = table.add_row().cells
-        row_cells[0].text = k
+        row_cells[0].text = revertToNumber(k)
         row_cells[1].text = v
 
     documentObj.add_page_break()
