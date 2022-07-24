@@ -398,7 +398,9 @@ a:active { text-decoration: none; }
     padding-bottom: 30px;
     background-color: #fff;
     width: 500px;
-    height: 650px;
+    height: 70%;
+    max-height: 650px;
+    min-height: 600px;
     border-radius: 20px;
     margin: 100px auto;
     top: 40%;

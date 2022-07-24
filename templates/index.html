@@ -120,19 +120,19 @@
       </div>
    </div>
    </div>
-   <div id="bottom-container" style="bottom: 0; position: absolute; left: 52%; transform: translate(-50%, -50%); padding: 10px;">
-      <div style="text-align: center;">
-         <i class="help" id="help" onclick="displayHelp()">Help</i>
-         <i style="margin-left: 20px;"><a class="contactus" id="contactus" href = "mailto:chris.do@usmc.mil?">Contact Us</a></i>
-         <i style="margin-left: 20px;" class="display-mode" onclick="toggleDisplay()" id="display-mode">Light Mode</i>
+   <div style="position: bottom;">
+      <div id="bottom-container" style="bottom: 0%; position: absolute; left: 50%; transform: translate(-50%, -50%); padding: 10px;">
+         <i style="padding: 10px;" class="help" id="help" onclick="displayHelp()">Help</i>
+         <i style="padding: 10px;"><a class="contactus" id="contactus" href = "mailto:chris.do@usmc.mil?">Contact Us</a></i>
+         <i style="padding: 10px;" class="display-mode" onclick="toggleDisplay()" id="display-mode">Light Mode</i>
       </div>
    </div>
 
    <div class="onboarding-container fade-in-image shadow nonvisible" id="onboarding-container">
       <div class="slideshow-container" id="slideshow-container">
-         <div class="myOnboardSlides" style="text-align: center; height: 100%;" id="onboardpage-1">
-            <div style="padding: 150px;">
-               <div style="height: 200px; width: 200px; background-color: papayawhip; top: 30%; left: 50%; transform: translate(-50%,-50%); position: absolute; border-radius: 25px;">
+         <div class="myOnboardSlides" style="text-align: center; height: 100%; position: relative;" id="onboardpage-1">
+            <div style="padding: 150px; position: relative;">
+               <div style="min-height: 200px; width: 200px; background-color: papayawhip; top: 50%; left: 50%; transform: translate(-50%,-50%); position: absolute; border-radius: 25px;">
                   <i class="fa-solid fa-table-cells fa-10x" style="top: 50%; left: 50%; transform: translate(-50%,-50%); position: absolute;"></i>
                </div>
             </div>
@@ -145,8 +145,8 @@
             </div>  -->
          </div>
          <div class="myOnboardSlides" style="text-align: center;" id="onboardpage-2">
-            <div style="padding: 150px;">
-               <div style="height: 200px; width: 200px; background-color: papayawhip; top: 30%; left: 50%; transform: translate(-50%,-50%); position: absolute; border-radius: 25px;">
+            <div style="padding: 150px; position: relative;">
+               <div style="height: 200px; width: 200px; background-color: papayawhip; top: 50%; left: 50%; transform: translate(-50%,-50%); position: absolute; border-radius: 25px;">
                   <i class="fa-solid fa-upload fa-10x" style="top: 50%; left: 50%; transform: translate(-50%,-50%); position: absolute;"></i>
                </div>
             </div>
@@ -155,16 +155,18 @@
             </div> -->
          </div>
          <div class="myOnboardSlides" style="text-align: center;" id="onboardpage-3">
-            <div style="height: 200px; width: 400px; background-color: papayawhip; top: 30%; left: 50%; transform: translate(-50%,-50%); position: absolute; border-radius: 25px;">
-               <i class="fa-solid fa-file-word fa-5x" style="top: 50%; left: 15%; transform: translate(-50%,-50%); position: absolute; color: blue;"></i>
-               <i class="fa-solid fa-file-excel fa-5x" style="top: 50%; left: 37.5%; transform: translate(-50%,-50%); position: absolute; color: green"></i>
-               <i class="fa-solid fa-eye fa-5x" style="top: 50%; left: 62.5%; transform: translate(-50%,-50%); position: absolute; color: salmon;"></i>
-               <i class="fa-solid fa-trash-can fa-5x" style="top: 50%; left: 85%; transform: translate(-50%,-50%); position: absolute; color: #e62636;"></i>
+            <div style="padding: 150px; position: relative;">
+               <div style="height: 200px; width: 400px; background-color: papayawhip; top: 50%; left: 50%; transform: translate(-50%,-50%); position: absolute; border-radius: 25px;">
+                  <i class="fa-solid fa-file-word fa-5x" style="top: 50%; left: 15%; transform: translate(-50%,-50%); position: absolute; color: blue;"></i>
+                  <i class="fa-solid fa-file-excel fa-5x" style="top: 50%; left: 37.5%; transform: translate(-50%,-50%); position: absolute; color: green"></i>
+                  <i class="fa-solid fa-eye fa-5x" style="top: 50%; left: 62.5%; transform: translate(-50%,-50%); position: absolute; color: salmon;"></i>
+                  <i class="fa-solid fa-trash-can fa-5x" style="top: 50%; left: 85%; transform: translate(-50%,-50%); position: absolute; color: #e62636;"></i>
+               </div>
             </div>
          </div>
          <div class="myOnboardSlides" style="text-align: center;" id="onboardpage-4">
-            <div style="padding: 150px;">
-               <div style="height: 200px; width: 200px; background-color: papayawhip; top: 30%; left: 50%; transform: translate(-50%,-50%); position: absolute; border-radius: 25px;">
+            <div style="padding: 150px; position: relative;">
+               <div style="height: 200px; width: 200px; background-color: papayawhip; top: 50%; left: 50%; transform: translate(-50%,-50%); position: absolute; border-radius: 25px;">
                   <i class="fa-solid fa-lightbulb fa-10x" style="top: 50%; left: 50%; transform: translate(-50%,-50%); position: absolute;"></i>
                </div>
             </div>
@@ -227,7 +229,9 @@
             $("#line-one").fadeIn();
 
             var elements = document.getElementsByClassName('dz-remove');
-            elements[0].className = 'dz-remove dark';
+            if(document.body.className == "dark"){
+               elements[0].className = 'dz-remove dark';
+            }
          });
       }
       });

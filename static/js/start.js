@@ -15,7 +15,7 @@ function checkCookies(){
             document.getElementById("onboarding-container").classList.add("o-dark");
             document.getElementById("action-one").className = "column column-action dark";   
             document.getElementById("help").classList.add("dark");
-            document.getElementById("contactus").classList.add("dark");         
+            document.getElementById("contactus").classList.add("dark");  
         }
     });
 

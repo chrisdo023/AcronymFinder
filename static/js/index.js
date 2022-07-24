@@ -122,7 +122,9 @@ function toggleDisplay() {
         fetch(`/set_cookie/${JSON.stringify("DarkMode")}/${JSON.stringify("False")}`)
         .then(function (response) {
             return response.text();
-        }).then(function (data) {});
+        }).then(function (data) {
+            console.log(data)
+        });
     } else {
         document.body.className = "dark";
         document.getElementById("display-mode").innerText = "Dark Mode";
@@ -138,7 +140,9 @@ function toggleDisplay() {
         fetch(`/set_cookie/${JSON.stringify("DarkMode")}/${JSON.stringify("True")}`)
         .then(function (response) {
             return response.text();
-        }).then(function (data) {});
+        }).then(function (data) {
+            console.log(data)
+        });
     }
 }
 
